@@ -1380,6 +1380,7 @@ GameObject:
   - component: {fileID: 1108106479}
   - component: {fileID: 1108106480}
   - component: {fileID: 1108106481}
+  - component: {fileID: 1108106482}
   m_Layer: 0
   m_Name: PersonagemVisual
   m_TagString: Untagged
@@ -1474,6 +1475,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31571c9177c8804fbafde72219bb3b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FaceCamera
+--- !u!95 &1108106482
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108106478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 92f0db759c7af0f48828b6ca4ef44166, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1132670788
 GameObject:
   m_ObjectHideFlags: 0

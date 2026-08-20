@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Camera mainCamera;
     private PlayerInputActions inputActions;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private bool isDashing;
     private float dashTimer;
@@ -23,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         mainCamera = Camera.main;
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         inputActions = new PlayerInputActions();
     }
@@ -64,6 +68,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 input =
             inputActions.Player.Move.ReadValue<Vector2>();
+        animator.SetFloat("Speed", input.magnitude);
+
+        if (input.x < -0.01f)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (input.x > 0.01f)
+        {
+            spriteRenderer.flipX = false;
+        }
 
         Vector3 direction =
             new Vector3(input.x, 0f, input.y);
@@ -109,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         dashDirection = direction;
 
         isDashing = true;
+        animator.SetBool("IsDashing", true);
         dashTimer = dashDuration;
         cooldownTimer = dashCooldown;
 
@@ -126,6 +141,11 @@ public class PlayerMovement : MonoBehaviour
         if (dashTimer <= 0f)
         {
             isDashing = false;
+        }
+        if (dashTimer <= 0f)
+        {
+            isDashing = false;
+            animator.SetBool("IsDashing", false);
         }
     }
 
