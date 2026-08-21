@@ -14,21 +14,27 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private PlayerInputActions inputActions;
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
 
     private bool isDashing;
     private float dashTimer;
     private float cooldownTimer;
     private Vector3 dashDirection;
 
+    // Direção inicial quando o personagem está parado.
+    // Vector2.down significa que ele começa olhando para S.
+    private Vector2 lastMoveDirection = Vector2.down;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         mainCamera = Camera.main;
         animator = GetComponentInChildren<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         inputActions = new PlayerInputActions();
+
+        // Define a direção inicial do Idle.
+        animator.SetFloat("LastMoveX", lastMoveDirection.x);
+        animator.SetFloat("LastMoveY", lastMoveDirection.y);
     }
 
     private void OnEnable()
@@ -68,15 +74,36 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 input =
             inputActions.Player.Move.ReadValue<Vector2>();
-        animator.SetFloat("Speed", input.magnitude);
 
-        if (input.x < -0.01f)
+        // Impede que andar na diagonal seja mais rápido.
+        if (input.sqrMagnitude > 1f)
         {
-            spriteRenderer.flipX = true;
+            input.Normalize();
         }
-        else if (input.x > 0.01f)
+
+        float inputMagnitude = Mathf.Clamp01(input.magnitude);
+
+        animator.SetFloat("Speed", inputMagnitude);
+
+        if (inputMagnitude > 0.01f)
         {
-            spriteRenderer.flipX = false;
+            // Normaliza para obter uma direção exata.
+            Vector2 animationDirection = input.normalized;
+
+            // Direção usada enquanto anda.
+            animator.SetFloat("MoveX", animationDirection.x);
+            animator.SetFloat("MoveY", animationDirection.y);
+
+            // Guarda a última direção usada.
+            lastMoveDirection = animationDirection;
+
+            animator.SetFloat("LastMoveX", lastMoveDirection.x);
+            animator.SetFloat("LastMoveY", lastMoveDirection.y);
+        }
+        else
+        {
+            animator.SetFloat("MoveX", 0f);
+            animator.SetFloat("MoveY", 0f);
         }
 
         Vector3 direction =
@@ -111,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         if (!inputActions.Player.Dash.WasPressedThisFrame())
             return;
 
-        // Não executa o dash se o personagem estiver parado
+        // Não executa o dash se estiver parado.
         if (moveDirection == Vector3.zero)
             return;
 
@@ -124,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
         isDashing = true;
         animator.SetBool("IsDashing", true);
+
         dashTimer = dashDuration;
         cooldownTimer = dashCooldown;
 
@@ -138,10 +166,6 @@ public class PlayerMovement : MonoBehaviour
 
         dashTimer -= Time.deltaTime;
 
-        if (dashTimer <= 0f)
-        {
-            isDashing = false;
-        }
         if (dashTimer <= 0f)
         {
             isDashing = false;
