@@ -7909,7 +7909,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2059895312}
   - component: {fileID: 2059895313}
-  - component: {fileID: 2059895314}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -7992,18 +7991,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
   m_BlendShapeWeights: []
---- !u!114 &2059895314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059895311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d31571c9177c8804fbafde72219bb3b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FaceCamera
 --- !u!4 &2080872975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8403356920836833588, guid: caf8382c15886de4e9d839711e469a0f, type: 3}
