@@ -35,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
         // Define a direção inicial do Idle.
         animator.SetFloat("LastMoveX", lastMoveDirection.x);
         animator.SetFloat("LastMoveY", lastMoveDirection.y);
+
+        // Define também a direção inicial do Dash.
+        animator.SetFloat("DashX", lastMoveDirection.x);
+        animator.SetFloat("DashY", lastMoveDirection.y);
     }
 
     private void OnEnable()
@@ -147,9 +151,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartDash(Vector3 direction)
     {
-        dashDirection = direction;
+        dashDirection = direction.normalized;
 
         isDashing = true;
+
+        // Envia para o Blend Tree a direção do dash.
+        // A direção fica travada até o dash terminar.
+        animator.SetFloat("DashX", lastMoveDirection.x);
+        animator.SetFloat("DashY", lastMoveDirection.y);
+
+        // Interrompe visualmente a caminhada.
+        animator.SetFloat("Speed", 0f);
+
+        // Inicia a animação do dash.
         animator.SetBool("IsDashing", true);
 
         dashTimer = dashDuration;
@@ -168,9 +182,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (dashTimer <= 0f)
         {
-            isDashing = false;
-            animator.SetBool("IsDashing", false);
+            EndDash();
         }
+    }
+
+    private void EndDash()
+    {
+        isDashing = false;
+
+        // Retorna para caminhada ou Idle.
+        animator.SetBool("IsDashing", false);
     }
 
     private void Move(Vector3 direction)
