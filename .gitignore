@@ -1,0 +1,42 @@
+# ==================================================================
+# Unity - Dashfall
+# ==================================================================
+
+# Cache / gerados pelo Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+Recordings/
+
+# Arquivos do Visual Studio / IDE
+.vs/
+.idea/
+.vscode/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.vsconfig
+
+# Arquivo gerado a partir do template InputSystem_Actions.inputactions
+# (asset nao utilizado pelo projeto; regenerado pelo Unity ao importar)
+/Assets/InputSystem_Actions.cs
+
+# Crash / recovery (files temporários de recuperação de cena)
+SysInfo.txt
+*.stackdump
+crashlytics-build.properties
+Assets/_Recovery/
