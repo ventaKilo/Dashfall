@@ -40,3 +40,7 @@ SysInfo.txt
 *.stackdump
 crashlytics-build.properties
 Assets/_Recovery/
+Assets/_Recovery.meta
+
+# Meta órfão do template InputSystem_Actions (asset nao utilizado)
+/Assets/InputSystem_Actions.cs.meta
